@@ -55,4 +55,3 @@ Sinta-se à vontade para contribuir com melhorias, correções de bugs ou novas 
 ## Licença
 
 Este projeto é licenciado sob a [GNU General Public License v3.0](LICENSE).
-```
