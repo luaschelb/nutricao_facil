@@ -8,6 +8,7 @@ import RefeicoesService from "../services/refeicoes.service";
 import { FlatList } from "react-native";
 import { Refeicoes } from "../models/Refeicoes.model";
 import MetaCaloriasService from "../services/metadecalorias.service";
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Painel() {
     const [data, setData] = useState({})
@@ -47,6 +48,7 @@ export default function Painel() {
                     jantar
                 ])
                 setRefeicoes(refeicoesDeHoje)
+                console.log("updated refeições")
             })
     }    
     const updateMeta = () => {
@@ -64,19 +66,22 @@ export default function Painel() {
     useEffect(() => {
         updateMeta();
     }, [])
+    
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            updateMeta();
+            updateRefeicoes();
+        } else {
+            // Perform actions when the screen loses focus
+            console.log('MyScreen is unfocused!');
+        }
+    }, [isFocused]);
 
     return (
         <ScrollView>
         <View style={styles.container}>
-            <Button
-            onPress={() => {
-                updateMeta()
-                updateRefeicoes()
-            }}
-            title="Atualizar dados"
-            color="rgb(100,20,255)"
-            accessibilityLabel="Atualizar dados"
-            ></Button>
             <View style={styles.containerCardCalorias}>
                 <Text style={{fontSize: 18, fontWeight: 'bold', paddingTop: 20, paddingLeft: 10, paddingBottom: 10}}>Calorias</Text>
                 <View style={styles.cardCalorias}>
